@@ -18,18 +18,16 @@ Node* createEmptyList() {
     return NULL;
 }
 
-//cheak if the list is empty
-void  isTheListEmpty(Node *head) {
-  if  (head == NULL)
-  printf("list is empty \n");
-  else 
-  printf("list isn`t empty \n");
+//check if the list is empty
+int isTheListEmpty(Node *head) {
+    return (head == NULL);
 }
 
 // add a product at the end of list
-Node* add_prod(Node **head, char name[], int price) {
+Node* add_prod(Node **head, int id, char name[], int price) {
     Node *newNode = (Node*) malloc(sizeof(Node));
 
+    newNode->prod.ID = id;
     strcpy(newNode->prod.Name, name);
     newNode->prod.Price = price;
     newNode->next = NULL;
@@ -49,11 +47,12 @@ Node* add_prod(Node **head, char name[], int price) {
 
     return newNode;
 }
-// add a product at the begin of list
 
-Node* add_prod_inthebegin(Node **head, char name[], int price) {
+// add a product at the beginning of list
+Node* add_prod_inthebegin(Node **head, int id, char name[], int price) {
     Node *newNode = (Node*) malloc(sizeof(Node));
 
+    newNode->prod.ID = id;
     strcpy(newNode->prod.Name, name);
     newNode->prod.Price = price;
 
@@ -64,7 +63,6 @@ Node* add_prod_inthebegin(Node **head, char name[], int price) {
     }
 
     Node *temp = *head;
-
     while (temp->next != *head)
         temp = temp->next;
 
@@ -74,13 +72,16 @@ Node* add_prod_inthebegin(Node **head, char name[], int price) {
 
     return newNode;
 }
-//display the node 
+
+//display one node
 void display_node(Node *temp) {
-    printf("\nProduct name: %s * Price: %d *\n",
+    printf("\nID: %d | Product: %s | Price: %d\n",
+           temp->prod.ID,
            temp->prod.Name,
            temp->prod.Price);
 }
-//display all the list
+
+//display all list
 void display_list(Node *head) {
     if (head == NULL) {
         printf("List is empty.\n");
@@ -95,23 +96,30 @@ void display_list(Node *head) {
     } while (temp != head);
 }
 
+
 int main() {
-    int price;
+    int price, id = 1;
     char name[20];
-   
+
     Node *head = createEmptyList();
-  isTheListEmpty(head);
-    printf("END // Enter product name and price:\n");
-    scanf("%s %d", name, price);
 
-    printf("BEGIN // Enter product name and price:\n");
+    if (isTheListEmpty(head))
+        printf("List is empty.\n");
+
+    
+
+    printf("\nBEGIN // Enter product name and price:\n");
     scanf("%s %d", name, &price);
-    add_prod_inthebegin(&head, name, price);
-
-
+    add_prod_inthebegin(&head, id++, name, price);
+  
+    printf("\nEND // Enter product name and price:\n");
+    scanf("%s %d", name, &price);
+    add_prod(&head, id++, name, price);
+    
     printf("\nDisplaying list:\n");
     display_list(head);
 
     return 0;
 }
+
 
