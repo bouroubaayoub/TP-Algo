@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>استبيان تدريبي كامل</title>
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background:#f2f2f2;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    padding-top:20px;
+    min-height:100vh;
+}
+
+form{
+    background:white;
+    padding:25px;
+    border-radius:8px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+    width:400px;
+}
+
+h1, h2{
+    text-align:center;
+    color:#333;
+}
+
+label{
+    display:block;
+    margin-top:10px;
+    font-weight:bold;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+input[type="tel"],
+input[type="email"],
+textarea,
+select{
+    width:100%;
+    padding:8px;
+    margin-top:5px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+input[type="radio"],
+input[type="checkbox"]{
+    margin-top:10px;
+}
+
+button,
+input[type="submit"],
+input[type="button"]{
+    width:100%;
+    padding:10px;
+    margin-top:15px;
+    background:#3498db;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover{
+    background:#2980b9;
+}
+
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+</head>
+<body>
+<h1>استبيان استقبال مريض - نسخة تدريبية</h1>
+
+<form action="quiz.php" method="post" name="form">
+
+  <!-- 2. سبب الزيارة -->
+  <h2>2. سبب الزيارة</h2>
+  ما السبب الرئيسي لطلب الاستشارة النفسية:<br>
+  <textarea name="q1" cols="50" rows="3"></textarea><br><br>
+
+  منذ متى بدأت المشكلة:<br>
+  <input type="radio" name="q2" value="less-month"> أقل من شهر<br>
+  <input type="radio" name="q2" value="1-6months"> 1 – 6 أشهر<br>
+  <input type="radio" name="q2" value="more-6months"> أكثر من 6 أشهر<br>
+  <input type="radio" name="q2" value="more-year"> أكثر من سنة<br><br>
+
+  هل هذه أول مرة تطلب مساعدة نفسية:<br>
+  <input type="radio" name="q3" id="q3_yes" onclick="hideTherapy()"> نعم<br>
+  <input type="radio" name="q3" id="q3_no" onclick="showTherapy()"> لا<br>
+
+  <div id="q3_"></div><br>
+
+  <!-- 3. الأعراض الحالية -->
+  <h2>3. الأعراض الحالية</h2>
+  شعور بالحزن أو الاكتئاب:<br>
+  <input type="radio" name="q4" value="never"> أبداً<br>
+  <input type="radio" name="q4" value="few-days"> عدة أيام<br>
+  <input type="radio" name="q4" value="more-half-days"> أكثر من نصف الأيام<br>
+  <input type="radio" name="q4" value="everyday"> تقريبًا كل يوم<br><br>
+
+  فقدان الاهتمام أو المتعة في الأنشطة:<br>
+  <input type="radio" name="q5" value="yes"> نعم
+  <input type="radio" name="q5" value="no"> لا<br>
+
+  <div id="q5_"></div><br>
+
+  صعوبة في النوم:<br>
+  <input type="radio" name="q6" value="yes" onclick="showSleep()"> نعم
+  <input type="radio" name="q6" value="no" onclick="hideSleep()"> لا<br>
+
+  <div id="q6_"></div><br>
+
+  شعور بالقلق أو التوتر:<br>
+  <input type="radio" name="q7" value="yes"> نعم
+  <input type="radio" name="q7" value="no"> لا<br><br>
+
+  نوبات هلع:<br>
+  <input type="radio" name="q8" value="yes"> نعم
+  <input type="radio" name="q8" value="no"> لا<br>
+
+  <div id="q8_"></div><br>
+
+  <!-- 4. تاريخ الأدوية -->
+  <h2>4. تاريخ الأدوية</h2>
+  هل تتناول أدوية نفسية حالياً:<br>
+  <input type="radio" name="q9" value="yes" onclick="showCurrentMed()"> نعم
+  <input type="radio" name="q9" value="no" onclick="hideCurrentMed()"> لا<br>
+
+  <div id="q9_"></div><br>
+
+  هل تناولت أدوية نفسية في الماضي:<br>
+  <input type="radio" name="q10" value="yes"> نعم
+  <input type="radio" name="q10" value="no"> لا<br><br>
+
+  <!-- 5. التاريخ الطبي -->
+  <h2>5. التاريخ الطبي</h2>
+  هل لديك أمراض مزمنة:<br>
+  <input type="radio" name="q11" value="yes" onclick="showChronic()"> نعم
+  <input type="radio" name="q11" value="no" onclick="hideChronic()"> لا<br>
+
+  <div id="q11_"></div><br>
+
+  هل سبق دخولك المستشفى بسبب مشكلة نفسية:<br>
+  <input type="radio" name="q12" value="yes"> نعم
+  <input type="radio" name="q12" value="no"> لا<br><br>
+
+  <!-- 6. نمط الحياة -->
+  <h2>6. نمط الحياة</h2>
+  هل تدخن:<br>
+  <input type="radio" name="q13" value="yes"> نعم
+  <input type="radio" name="q13" value="no"> لا<br>
+
+  هل تشرب الكحول:<br>
+  <input type="radio" name="q14" value="yes"> نعم
+  <input type="radio" name="q14" value="no"> لا<br>
+
+  كم ساعة تنام يوميًا:<br>
+  <input type="number" name="sleep_daily"><br>
+
+  هل تمارس الرياضة:<br>
+  <input type="radio" name="q15" value="yes"> نعم
+  <input type="radio" name="q15" value="no"> لا<br><br>
+
+  <!-- 7. تقييم الحالة النفسية -->
+  <h2>7. تقييم الحالة النفسية</h2>
+  هل شعرت بأن الحياة بلا قيمة:<br>
+  <input type="radio" name="q16" value="never"> أبداً
+  <input type="radio" name="q16" value="sometimes"> أحياناً
+  <input type="radio" name="q16" value="often"> غالباً
+  <input type="radio" name="q16" value="always"> دائماً<br><br>
+
+  هل راودتك أفكار بإيذاء نفسك:<br>
+  <input type="radio" name="q17" value="yes" onclick="showPlan()"> نعم
+  <input type="radio" name="q17" value="no" onclick="hidePlan()"> لا<br>
+
+  <div id="q17_"></div><br>
+
+  <!-- 8. الموافقة -->
+  <h2>8. الموافقة</h2>
+  أوافق <input type="checkbox" name="ok" required><br><br>
+
+</form>
+<input type="button" value="DOWNLOAD PDF" onclick="downloadPDF()">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+function downloadPDF() {
+    const element = document.querySelector('form');
+    const opt = {
+        margin: 10,
+        filename: 'patient_form.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(element).save();
+}
+
+// سبب الزيارة - السؤال الشرطي
+function showTherapy() {
+    document.getElementById("q3_").innerHTML = `
+      <label>هل سبق أن تلقيت علاجًا نفسيًا؟</label><br>
+      <input type="radio" name="q3_" value="therapy"> علاج نفسي<br>
+      <input type="radio" name="q3_" value="psyc-med"> أدوية نفسية<br>
+      <input type="radio" name="q3_" value="both"> كلاهما<br>
+    `;
+}
+function hideTherapy() { document.getElementById("q3_").innerHTML = ""; }
+
+// صعوبة النوم
+function showSleep() {
+    document.getElementById("q6_").innerHTML = `
+      <label>كم ساعة تنام في المتوسط؟</label><br>
+      <input type="text" name="sleep_hours"><br>
+    `;
+}
+function hideSleep() { document.getElementById("q6_").innerHTML = ""; }
+
+// نوبات هلع
+let panicRadios = document.getElementsByName("q8");
+panicRadios.forEach(radio => {
+    radio.addEventListener("click", function(){
+        if(this.value === "yes"){
+            document.getElementById("q8_").innerHTML = `
+              <label>كم مرة تحدث نوبات الهلع؟</label><br>
+              <input type="text" name="panic_times"><br>
+            `;
+        } else { document.getElementById("q8_").innerHTML = ""; }
+    });
+});
+
+// الأدوية الحالية
+function showCurrentMed() {
+    document.getElementById("q9_").innerHTML = `
+      <label>اسم الدواء:</label><br>
+      <input type="text" name="med_name"><br>
+      <label>الجرعة:</label><br>
+      <input type="text" name="med_dose"><br>
+      <label>منذ متى تستخدمه:</label><br>
+      <input type="text" name="med_since"><br>
+    `;
+}
+function hideCurrentMed() { document.getElementById("q9_").innerHTML = ""; }
+
+// الأمراض المزمنة
+function showChronic() {
+    document.getElementById("q11_").innerHTML = `
+      <label>اذكر المرض:</label><br>
+      <input type="text" name="chronic_name"><br>
+    `;
+}
+function hideChronic() { document.getElementById("q11_").innerHTML = ""; }
+
+// خطة إيذاء النفس
+function showPlan() {
+    document.getElementById("q17_").innerHTML = `
+      <label>هل لديك خطة لإيذاء نفسك؟</label><br>
+      <input type="radio" name="plan" value="yes"> نعم
+      <input type="radio" name="plan" value="no"> لا<br>
+    `;
+}
+function hidePlan() { document.getElementById("q17_").innerHTML = ""; }
+
+</script>
+
+</body>
+</html>

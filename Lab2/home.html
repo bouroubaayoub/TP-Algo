@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home</title>
+</head>
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background:#f2f2f2;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+form{
+    background:white;
+    padding:25px;
+    border-radius:8px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+    width:350px;
+}
+
+label{
+    display:block;
+    margin-top:10px;
+    font-weight:bold;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+input[type="tel"],
+input[type="email"]{
+    width:100%;
+    padding:8px;
+    margin-top:5px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+input[type="radio"]{
+    margin-top:10px;
+}
+
+input[type="submit"]{
+    width:100%;
+    padding:10px;
+    margin-top:15px;
+    background:#3498db;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+input[type="submit"]:hover{
+    background:#2980b9;
+}
+
+</style>
+<body>
+    <form action="index.php" method="post">
+      
+        <label  >Username</label>
+        <input name="username" type="text"> 
+        <label  >Date of birth</label>
+        <input name="date-of-birth" type="date"> <br>
+        <label  >Age</label>
+        <input name="age" type="number"> 
+         <label  >Gender</label>
+          <input name="gender" value="male" type="radio">Male
+          <input name="gender" value="Female" type="radio">Female <br>
+          <label >Marital status</labeL>
+          <input name="M-status" value="Single" type="radio">Single <br>
+          <input name="M-status" value="Married" type="radio">Married <br>
+          <input name="M-status" value="Divorced" type="radio">Divorced <br>
+          <input name="M-status" value="Widowed" type="radio">Widowed <br>
+          <LAbel>Number of phone </LAbel>
+          <input name="n-phone" type="tel"> 
+          <LAbel>Email </LAbel>
+          <input name="email" type="email"> 
+          <input type="submit" name="submit">
+          
+
+      
+    </form>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
